@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>{{titulo}}</h1>
+
+
+<section mat-dialog-content (mousemove)="habilitarBoton()" style="padding:8px;">
+    <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+    <form [formGroup]="empresaForm">
+        <p align="center" mat-raised-button color="primary"><input  type='file' (change)="readURL($event);">
+        <br><img width="100px" formControlName="imagen_logo"  [src]="imagen || 'https://cdn4.iconfinder.com/data/icons/essentials-73/24/006_-_Image-256.png'" alt="your image" />
+    </p>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre de la Empresa</mat-label>
+            <input formControlName="nombre" matInput placeholder="Ingrese un nombre">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>NIT de la Empresa</mat-label>
+            <input formControlName="nit" matInput placeholder="Ingrese el NIT de la empresa">
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Ciudad</mat-label>
+
+            <mat-select formControlName="ciudad">
+                <mat-option value="option1" *ngFor="let opcion of ciudades" [value]="opcion">{{opcion}}</mat-option>
+              </mat-select>
+            
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input formControlName="telefono" matInput placeholder="Ingrese el Teléfono de la empresa">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input formControlName="correo" matInput placeholder="Ingrese el correo de la empresa">
+        </mat-form-field>
+    
+       
+            <label id="example-radio-group-label">Verificada ?: </label>
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            formControlName="verificada"
+            [(ngModel)]="this.verificada">
+            <mat-radio-button class="example-radio-button" *ngFor="let re of sino" [value]="re">
+                {{ (re)?"SI":"NO "}} &nbsp;&nbsp; 
+            </mat-radio-button>
+            </mat-radio-group>
+            <div mat-dialog-action [align]="'end'">
+                <button style="margin-right: 8px;" mat-raised-button color="warn" mat-dialog-close><mat-icon>close</mat-icon> Cerrar</button>
+                <button mat-raised-button color="primary" [disabled]="this.deshabilitado" (click)="guardar()"><mat-icon>save</mat-icon> {{ this.textoBoton }}</button>
+            </div>
+    </form>
+    
+</section>
